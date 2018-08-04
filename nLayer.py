@@ -12,6 +12,7 @@ The final goal is to iteratively calculate the gradient descent of parameters W 
 the W and b eventually reach their local minima and we have the optimal value for the cost function.
 
 The process is:
+    1.  Set up pre-processing of images.
     1.  For the the forward propagation, go on to calculate the cost function J, by feeding vectorized Y for every layer
         to every subsequent layer. 
     2.  The function to map the values from [0,inf] to [0,1], also known as activation function will be tanh(z) for every
@@ -23,3 +24,13 @@ The process is:
             w[i]=w[i]-dW/dJ
             b[i]=b[i]-db/dJ
 """
+
+PATH='/Users/kartikmadhira/DL_datasets/cifar-10-batches-py/data_batch_'
+
+def unpickle(file):
+    import _pickle
+    with open(file, 'rb') as fo:
+        dict = _pickle.load(fo, encoding='bytes')
+    return dict
+
+data=unpickle(PATH)
