@@ -29,6 +29,8 @@ import matplotlib.pyplot as plt
 
 l_dict={0:'airplane',1:'automobile',2:'bird',3:'car',4:'deer',5:'dog',6:'frog',7:'horse',8:'ship',9:'truck'}
 root_path='/Users/kartikmadhira/DL_datasets/cifar-10-batches-py/data_batch_'
+#limit the train dataset
+data_limit=10000
 
 def unpickle(file):
     import _pickle
@@ -52,7 +54,7 @@ def load_data(path):
     #print(len(train_data),len(train_labels))
     return (train_data,train_labels)
 
-
+#convert row matrices to images
 def m_to_img(train_data):
     #seperating R,G,B channels
     R=train_data[:,:1024]
@@ -63,7 +65,41 @@ def m_to_img(train_data):
     images_data=np.reshape(images_data,(50000,32,32,3))
     print(images_data.shape)
     return images_data
-    
+
+#normalize raw data
+def normalize(train_data,data_limit):
+    mean=np.mean(train_data,axis=1,keepdims=True)
+    normalized=(mean-train_data)/255
+    #this is the normalized data
+    return normalized[:,:int(data_limit)]
+
+def relu(z):
+    A=np.maximum(0,z)
+    return A
+
+def sigmoid(z):
+    A=1/(1+np.exp(z))
+    return A
+ 
+#initialize the weights and bias randomly to avoid zero initialization through out network
+#n_x -> input layer dims
+#n_h -> hidden layer size
+#n_y -> output layer dims
+#L -> desired number of layers
+def init_weight_bias(hidden_l_len):
+    #W1,b1..Wn,bn are going to be weights and biases in each layer
+    W=dict()
+    b=dict()
+    L=len(hidden_l_len)
+    for a in range(1,L):
+        #Wn.shape=(n_h,n_x)
+        #bn.shape=(n_h,m)
+        W['W'+str(a)]=np.random.randn(hidden_l_len[a],hidden_l_len[a-1])*0.01
+        b['b'+ str(a)]=np.random.randn(hidden_l_len[a],1)*0.01
+        print(W['W'+str(a)].shape,b['b'+str(a)].shape)    
+
+
+
 def main():
     ind=10393
     train_data,train_labels=load_data(root_path)
