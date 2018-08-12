@@ -27,17 +27,21 @@ The process is:
 import numpy as np
 import matplotlib.pyplot as plt
 
+#dictionary for the labels 
 l_dict={0:'airplane',1:'automobile',2:'bird',3:'car',4:'deer',5:'dog',6:'frog',7:'horse',8:'ship',9:'truck'}
+#root path
 root_path='/Users/kartikmadhira/DL_datasets/cifar-10-batches-py/data_batch_'
 #limit the train dataset
 data_limit=10000
 
+#unpickle the dictionary stored in the files and return
 def unpickle(file):
     import _pickle
     with open(file, 'rb') as fo:
         dict = _pickle.load(fo, encoding='bytes')
     return dict
 
+#loop through files and get a stacked up labels and image data
 def load_data(path):
     train_data=np.zeros((3072,1),dtype='int').T
     train_labels=[]
@@ -48,6 +52,7 @@ def load_data(path):
         #get data and labels 
         t_data=data[b'data']
         t_labels=data[b'labels']
+        #vertically stacks them up
         train_data=np.vstack((train_data,t_data))
         train_labels+=t_labels
     train_data=train_data[1:]
