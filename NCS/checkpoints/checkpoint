@@ -1,0 +1,2 @@
+model_checkpoint_path: "inference"
+all_model_checkpoint_paths: "inference"
