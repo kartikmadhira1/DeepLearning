@@ -1,4 +1,4 @@
-##ResNet 
+## ResNet 
 
 1. Made up of residual blocks which contains input being summed with the ouput of two convolving layers just before applying ReLU. (See fig.)
 
