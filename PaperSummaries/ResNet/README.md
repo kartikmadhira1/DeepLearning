@@ -4,4 +4,6 @@
 
 2. Solves the problem of vanishing gradients and therefore the networks can go deeper without having the vanishing gradient problem.
 
+3. Deeper Nets are possible without having to have the problem of vanishing gradients.
+
 ![alt](resnet.png)
